@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func Test_createUser(t *testing.T) {
+func Test_createUserHandler(t *testing.T) {
 	req := httptest.NewRequest(http.MethodPost, "/users", nil)
 	w := httptest.NewRecorder()
 	uh := NewUserHandler()
