@@ -1,7 +1,6 @@
 package router
 
 import (
-	"fmt"
 	"io"
 	"net/http"
 	"net/http/httptest"
@@ -32,7 +31,6 @@ func Test_NotFound(t *testing.T) {
 	res := w.Result()
 	defer res.Body.Close()
 	data, err := io.ReadAll(res.Body)
-	fmt.Println("a" + string(data) + "a")
 	if err != nil {
 		t.Errorf("expected error to be nil got %v", err)
 	}
