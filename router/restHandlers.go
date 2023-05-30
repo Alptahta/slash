@@ -13,7 +13,7 @@ func (uh *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		uh.createUserHandler(w, r)
 	default:
-		// TODO: Add error
+		http.NotFound(w, r)
 	}
 }
 
