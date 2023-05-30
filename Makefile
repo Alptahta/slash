@@ -1,5 +1,9 @@
 run:
 	go run main.go
 
-test:
-	go test -v
+unit-tests:
+	go test -v ./...
+
+unit-test-coverage:
+	go test -v ./... -coverprofile coverage.out
+	go tool cover -html coverage.out -o coverage.html
