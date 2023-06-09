@@ -20,5 +20,6 @@ func (uh *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (uh *UserHandler) createUserHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Implement me
 	resp := "TODO create user"
+	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(resp))
 }
