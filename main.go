@@ -4,7 +4,7 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/Alptahta/slash/router"
+	"slash/router"
 )
 
 const HTTP_SERVER_PORT = ":8080"

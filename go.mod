@@ -1,3 +1,3 @@
-module github.com/Alptahta/slash
+module slash
 
 go 1.20
