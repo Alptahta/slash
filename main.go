@@ -1,16 +1,18 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"log"
 	"net/http"
-	"os"
 
+	"embed"
 	"slash/router"
 )
 
 const HTTP_SERVER_PORT = ":8080"
+
+//go:embed slash-ascii.txt
+var f embed.FS
 
 func main() {
 	err := showASCIILogo("slash-ascii.txt")
@@ -22,11 +24,17 @@ func main() {
 
 	uh := router.NewUserHandler()
 
+	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.WriteHeader(http.StatusOK)
+	})
+
 	mux.HandleFunc("/users", uh.ServeHTTP)
 
+	// TODO Improve Server fields
 	srv := &http.Server{
 		Addr:    HTTP_SERVER_PORT,
 		Handler: mux,
+		// ReadTimeout: time.Duration(2),
 	}
 
 	log.Printf("Starting HTTP server at port %s", HTTP_SERVER_PORT)
@@ -34,18 +42,13 @@ func main() {
 }
 
 func showASCIILogo(filename string) error {
-	readFile, err := os.Open(filename)
+	data, err := f.ReadFile(filename)
 	if err != nil {
 		return err
 	}
-
-	fileScanner := bufio.NewScanner(readFile)
-	fileScanner.Split(bufio.ScanLines)
-
-	for fileScanner.Scan() {
-		fmt.Println(fileScanner.Text())
+	_, err = fmt.Println(string(data))
+	if err != nil {
+		return err
 	}
-
-	readFile.Close()
 	return nil
 }
