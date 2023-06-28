@@ -8,12 +8,24 @@ WORKDIR /app
 # Copy the source code.
 # TODO: Do not forget to replace with 'COPY go.mod go.sum ./' once you add a Third-party library
 COPY . ./
-
-# Download Go modules
 RUN go mod download
 
 # Build
 RUN CGO_ENABLED=0 GOOS=linux go build -o /slash
 
-# Run
-CMD ["/slash"]
+# Run the tests in the container
+FROM build-stage AS run-test-stage
+RUN go test -v ./...
+
+# Deploy the application binary into a lean image
+FROM gcr.io/distroless/base-debian11 AS build-release-stage
+
+WORKDIR /
+
+COPY --from=build-stage /slash /slash
+
+EXPOSE 8080
+
+USER nonroot:nonroot
+
+ENTRYPOINT ["/slash"]
