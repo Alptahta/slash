@@ -1,5 +1,7 @@
 # slash
 
+[![Build Status][ci-badge]][ci-runs]
+
 > User micro service written in Golang using Standard Library for HTTP client and server implementation.
 
 > Status: In-Progress
