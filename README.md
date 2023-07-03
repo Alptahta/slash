@@ -1,6 +1,6 @@
 # slash
 
-[![Build Status][ci-badge]][ci-runs]
+![Tests](https://github.com/Alptahta/slash/actions/workflows/go.yml/badge.svg)
 
 > User micro service written in Golang using Standard Library for HTTP client and server implementation.
 
