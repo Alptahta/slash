@@ -19,7 +19,7 @@ func Test_createUserHandler(t *testing.T) {
 		if err != nil {
 			t.Fatalf("expected error to be nil got %v", err)
 		}
-		if string(data) != "TODO create user" {
+		if string(data) != "TODO create userA" {
 			t.Fatalf("expected TODO create user got %v", string(data))
 		}
 		if res.StatusCode != http.StatusCreated {
