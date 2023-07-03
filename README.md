@@ -1,8 +1,9 @@
 # slash
 
-[![Go](https://github.com/Alptahta/slash/actions/workflows/go.yml/badge.svg)](https://github.com/Alptahta/slash/actions/workflows/go.yml)
+[![Build Status][ci-badge]][ci-runs]
 
-![Go](https://github.com/Alptahta/slash/actions/workflows/go.yml/badge.svg?event=push)
+[ci-badge]:            https://github.com/Alptahta/slash/actions/workflows/go.yaml/badge.svg
+[ci-runs]:             https://github.com/Alptahta/slash/actions
 
 
 > User micro service written in Golang using Standard Library for HTTP client and server implementation.
