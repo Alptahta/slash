@@ -1,11 +1,16 @@
 package router
 
-import "net/http"
+import (
+	"net/http"
+	"slash/service"
+)
 
-type UserHandler struct{}
+type UserHandler struct {
+	Service service.UserService
+}
 
-func NewUserHandler() *UserHandler {
-	return &UserHandler{}
+func NewUserHandler(s service.UserService) *UserHandler {
+	return &UserHandler{Service: s}
 }
 
 func (uh *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -20,6 +25,10 @@ func (uh *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (uh *UserHandler) createUserHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Implement me
 	resp := "TODO create user"
+	_, err := w.Write([]byte(resp))
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 	w.WriteHeader(http.StatusCreated)
-	w.Write([]byte(resp))
 }

@@ -7,6 +7,7 @@ import (
 
 	"embed"
 	"slash/router"
+	"slash/service"
 )
 
 const HTTP_SERVER_PORT = ":8080"
@@ -22,7 +23,8 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	uh := router.NewUserHandler()
+	service := service.NewService()
+	uh := router.NewUserHandler(service)
 
 	mux.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
@@ -34,7 +36,8 @@ func main() {
 	srv := &http.Server{
 		Addr:    HTTP_SERVER_PORT,
 		Handler: mux,
-		// ReadTimeout: time.Duration(2),
+		// ReadHeaderTimeout: 1 * time.Nanosecond,
+		// ReadTimeout: time.Nanosecond,
 	}
 
 	log.Printf("Starting HTTP server at port %s", HTTP_SERVER_PORT)
