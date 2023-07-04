@@ -4,14 +4,19 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"slash/service"
 	"testing"
+
+	"github.com/golang/mock/gomock"
 )
 
 func Test_createUserHandler(t *testing.T) {
+	var mockctrl = gomock.NewController(t)
+	var us = service.NewMockUserService(mockctrl)
 	t.Run("Should return successful response with HTTP status:201", func(t *testing.T) {
 		req := httptest.NewRequest(http.MethodPost, "/users", nil)
 		w := httptest.NewRecorder()
-		uh := NewUserHandler()
+		uh := NewUserHandler(us)
 		uh.ServeHTTP(w, req)
 		res := w.Result()
 		defer res.Body.Close()
@@ -29,10 +34,12 @@ func Test_createUserHandler(t *testing.T) {
 }
 
 func Test_NotFound(t *testing.T) {
+	var mockctrl = gomock.NewController(t)
+	var us = service.NewMockUserService(mockctrl)
 	t.Run("Should return HTTP status:404 when POST method not used", func(t *testing.T) {
 		req := httptest.NewRequest(http.MethodGet, "/users", nil)
 		w := httptest.NewRecorder()
-		uh := NewUserHandler()
+		uh := NewUserHandler(us)
 		uh.ServeHTTP(w, req)
 		res := w.Result()
 		defer res.Body.Close()
