@@ -1,6 +1,9 @@
 run:
 	go run main.go
 
+lint:
+	golangci-lint run -v
+
 unit-tests:
 	go test -v ./...
 
@@ -13,7 +16,6 @@ dockerized:
 	# docker build -t slash:v1.0 .
 	docker build -t slash:multistage -f Dockerfile.multistage .
 	docker run -d -p 8080:8080 --name slashCont slash:multistage
-
 
 # To purge your computer from this project's related docker
 purge:
