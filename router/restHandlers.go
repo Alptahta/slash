@@ -25,10 +25,10 @@ func (uh *UserHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 func (uh *UserHandler) createUserHandler(w http.ResponseWriter, r *http.Request) {
 	// TODO: Implement me
 	resp := "TODO create user"
+	w.WriteHeader(http.StatusCreated)
 	_, err := w.Write([]byte(resp))
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	w.WriteHeader(http.StatusCreated)
 }
